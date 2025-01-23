@@ -8,8 +8,6 @@ export default function Kambaz() {
   return (
     <div id="wd-kambaz">
       <h1>Kambaz</h1>
-      <h4>Daniel Szyc, Section 2</h4>
-      <a href="https://github.com/danszyc/kambaz-react-web-app-cs4550/tree/master" target="_blank">GitHub repository</a>
       <table>
         <tr>
           <td valign="top">
