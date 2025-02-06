@@ -6,6 +6,13 @@ import Lab3 from "./Lab3";
 export default function Labs() {
   return (
     <div>
+      <h4>Daniel Szyc, Section 2</h4>
+            <a
+              href="https://github.com/danszyc/kambaz-react-web-app-cs4550/tree/master"
+              target="_blank"
+            >
+              GitHub repository
+            </a> 
       <h1>Labs</h1>
       <TOC />
       <Routes>
