@@ -4,13 +4,13 @@ import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 export default function App() {
   return (
     <HashRouter>
-      <h4>Daniel Szyc, Section 2</h4>
+      {/* <h4>Daniel Szyc, Section 2</h4>
       <a
         href="https://github.com/danszyc/kambaz-react-web-app-cs4550/tree/master"
         target="_blank"
       >
         GitHub repository
-      </a>
+      </a> */}
       <div>
         <Routes>
           <Route path="/" element={<Navigate to="Labs" />} />
