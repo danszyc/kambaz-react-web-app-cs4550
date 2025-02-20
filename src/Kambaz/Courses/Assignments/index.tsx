@@ -5,15 +5,17 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import { BsGripVertical } from "react-icons/bs";
-import AssignmentControlButtons from "./AssignmentControlButtons.tsx";
-import { BsSearch } from "react-icons/bs";
-import { BsPencilSquare } from "react-icons/bs";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsPlus } from "react-icons/bs";
+import { BsGripVertical, BsSearch, BsPencilSquare, BsFillCaretDownFill, BsPlus } from "react-icons/bs";
+import AssignmentControlButtons from "./AssignmentControlButtons";
+import { useParams, Link } from "react-router-dom";
+import * as db from "../../Database"; // Adjust the import path as needed
 import "./styles.css";
 
 export default function Assignments() {
+  const { cid } = useParams();
+
+  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
+
   return (
     <div id="wd-assignments">
       <div className="d-flex align-items-center mb-2">
@@ -46,119 +48,44 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="wd-assignments rounded-0">
-            <ListGroup.Item className="wd-assignment p-3 ps-1">
-              <div className="d-flex align-items-start align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <span className="text-success me-2">
-                  <BsPencilSquare className="fs-4" />
-                </span>
-                <div>
-                  <Row>
-                    <a
-                      href="#/Kambaz/Courses/1234/Assignments/1"
-                      className="wd-assignment-link"
-                    >
-                      <span className="fw-bold">A1 - ENV + HTML</span>
-                    </a>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="text-danger">
-                        <span className="fw-bold me-1">Multiple Modules</span>{" "}
+            {assignments.map((assignment) => (
+              <ListGroup.Item key={assignment._id} className="wd-assignment p-3 ps-1">
+                <div className="d-flex align-items-start align-items-center">
+                  <BsGripVertical className="me-2 fs-3" />
+                  <span className="text-success me-2">
+                    <BsPencilSquare className="fs-4" />
+                  </span>
+                  <div>
+                    <Row>
+                      <Link
+                        to={`/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                        className="wd-assignment-link"
+                      >
+                        <span className="fw-bold">{assignment.title}</span>
+                      </Link>
+                    </Row>
+                    <Row>
+                      <div className="container">
+                        <div className="text-danger">
+                          <span className="fw-bold me-1">Multiple Modules</span>{" "}
+                        </div>
+                        <div className="fw-bold me-1"> | Not available until</div>{" "}
+                        May 6 at 12:00 am |
                       </div>
-                      <div className="fw-bold me-1"> | Not available until</div>{" "}
-                      May 6 at 12:00 am |
-                    </div>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="fw-bold me-1">Due</div> May 13 at 11:59pm
-                      | 300 pts
-                    </div>
-                  </Row>
-                </div>
-                <div className="ms-auto">
-                  {" "}
-                  <AssignmentControlButtons />
-                </div>
-              </div>
-            </ListGroup.Item>
-
-            <ListGroup.Item className="wd-assignment p-3 ps-1">
-              <div className="d-flex align-items-start align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <span className="text-success me-2">
-                  <BsPencilSquare className="fs-4" />
-                </span>
-                <div>
-                  <Row>
-                  <a
-                      href="#/Kambaz/Courses/1234/Assignments/2"
-                      className="wd-assignment-link"
-                    >
-                      <span className="fw-bold">A2 - CSS + BOOTSTRAP</span>
-                    </a>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="text-danger">
-                        <span className="fw-bold me-1">Multiple Modules</span>{" "}
+                    </Row>
+                    <Row>
+                      <div className="container">
+                        <div className="fw-bold me-1">Due</div> May 13 at 11:59pm
+                        | 300 pts
                       </div>
-                      <div className="fw-bold me-1"> | Not available until</div>{" "}
-                      May 13 at 12:00 am |
-                    </div>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="fw-bold me-1">Due</div> May 20 at 11:59pm
-                      | 300 pts
-                    </div>
-                  </Row>
+                    </Row>
+                  </div>
+                  <div className="ms-auto">
+                    <AssignmentControlButtons />
+                  </div>
                 </div>
-                <div className="ms-auto">
-                  {" "}
-                  <AssignmentControlButtons />
-                </div>
-              </div>
-            </ListGroup.Item>
-
-            <ListGroup.Item className="wd-assignment p-3 ps-1">
-              <div className="d-flex align-items-start align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <span className="text-success me-2">
-                  <BsPencilSquare className="fs-4" />
-                </span>
-                <div>
-                  <Row>
-                  <a
-                      href="#/Kambaz/Courses/1234/Assignments/3"
-                      className="wd-assignment-link"
-                    >
-                      <span className="fw-bold">A3 - JAVASCRIPT + REACT</span>
-                    </a>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="text-danger">
-                        <span className="fw-bold me-1">Multiple Modules</span>{" "}
-                      </div>
-                      <div className="fw-bold me-1"> | Not available until</div>{" "}
-                      May 20 at 12:00 am |
-                    </div>
-                  </Row>
-                  <Row>
-                    <div className="container">
-                      <div className="fw-bold me-1">Due</div> May 27 at 11:59pm
-                      | 300 pts
-                    </div>
-                  </Row>
-                </div>
-                <div className="ms-auto">
-                  {" "}
-                  <AssignmentControlButtons />
-                </div>
-              </div>
-            </ListGroup.Item>
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         </ListGroup.Item>
       </ListGroup>
