@@ -15,7 +15,7 @@ import {
 } from "react-icons/bs";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer"; // Import the deleteAssignment action
+import { deleteAssignment } from "./reducer";
 import "./styles.css";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 
