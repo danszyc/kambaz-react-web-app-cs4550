@@ -5,16 +5,51 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import { BsGripVertical, BsSearch, BsPencilSquare, BsFillCaretDownFill, BsPlus } from "react-icons/bs";
-import AssignmentControlButtons from "./AssignmentControlButtons";
-import { useParams, Link } from "react-router-dom";
-import * as db from "../../Database"; // Adjust the import path as needed
+import {
+  BsGripVertical,
+  BsSearch,
+  BsPencilSquare,
+  BsFillCaretDownFill,
+  BsPlus,
+  BsTrash,
+} from "react-icons/bs";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer"; // Import the deleteAssignment action
 import "./styles.css";
+import { useState } from "react";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments() {
   const { cid } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const assignments = db.assignments.filter((assignment) => assignment.course === cid);
+  // Fetch assignments from Redux store
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+
+  // Filter assignments for the current course
+  const courseAssignments = assignments.filter(
+    (assignment: any) => assignment.course === cid
+  );
+
+  // Handle adding a new assignment
+  const handleAddAssignment = () => {
+    navigate(`/Kambaz/Courses/${cid}/Assignments/new`);
+  };
+
+  // Handle deleting an assignment
+  const handleDeleteAssignment = (assignmentId: string) => {
+    // Show confirmation dialog
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this assignment?"
+    );
+
+    if (isConfirmed) {
+      // Dispatch the deleteAssignment action
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
 
   return (
     <div id="wd-assignments">
@@ -28,7 +63,12 @@ export default function Assignments() {
         <Button variant="secondary" id="wd-add-assignment-group">
           +Group
         </Button>
-        <Button variant="danger" className="ms-2" id="wd-add-assignment">
+        <Button
+          variant="danger"
+          className="ms-2"
+          id="wd-add-assignment"
+          onClick={handleAddAssignment}
+        >
           +Assignment
         </Button>
       </div>
@@ -48,8 +88,11 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="wd-assignments rounded-0">
-            {assignments.map((assignment) => (
-              <ListGroup.Item key={assignment._id} className="wd-assignment p-3 ps-1">
+            {courseAssignments.map((assignment: any) => (
+              <ListGroup.Item
+                key={assignment._id}
+                className="wd-assignment p-3 ps-1"
+              >
                 <div className="d-flex align-items-start align-items-center">
                   <BsGripVertical className="me-2 fs-3" />
                   <span className="text-success me-2">
@@ -81,7 +124,13 @@ export default function Assignments() {
                     </Row>
                   </div>
                   <div className="ms-auto">
-                    <AssignmentControlButtons />
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleDeleteAssignment(assignment._id)}
+                    >
+                      <BsTrash />
+                    </Button>
                   </div>
                 </div>
               </ListGroup.Item>
