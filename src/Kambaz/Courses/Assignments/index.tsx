@@ -17,7 +17,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAssignment } from "./reducer"; // Import the deleteAssignment action
 import "./styles.css";
-import { useState } from "react";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments() {
