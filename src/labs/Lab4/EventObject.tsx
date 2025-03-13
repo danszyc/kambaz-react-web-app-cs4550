@@ -1,7 +1,7 @@
 import { useState } from "react";
 export default function EventObject() {
   const [event, setEvent] = useState(null);
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     e.target = e.target.outerHTML;
     delete e.view;
     setEvent(e);
