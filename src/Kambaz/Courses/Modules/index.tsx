@@ -6,7 +6,7 @@ import LessonControlButtons from "./LessonControlButtons";
 import ModulesControls from "./ModulesControls";
 import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Modules() {
   const { cid } = useParams();
