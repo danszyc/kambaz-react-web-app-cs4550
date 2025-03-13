@@ -61,7 +61,7 @@ export default function Modules() {
                   deleteModule={(moduleId) => {
                     dispatch(deleteModule(moduleId));
                   }}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))}
+                  editModule={(moduleId) => dispatch(editModule(moduleId))} //
                 />
               )}
             </div>
