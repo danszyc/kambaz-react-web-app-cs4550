@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
