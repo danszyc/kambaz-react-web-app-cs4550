@@ -13,7 +13,7 @@ import {
   updateModule,
   deleteModule,
 } from "./reducer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import * as coursesClient from "../client";
 import * as modulesClient from "./client";
 
@@ -42,10 +42,11 @@ export default function Modules() {
     dispatch(addModule(module));
   };
 
-  const fetchModules = async () => {
+  const fetchModules = useCallback(async () => {
     const modules = await coursesClient.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
-  };
+  }, [cid, dispatch]);
+
   useEffect(() => {
     fetchModules();
   }, []);
@@ -56,10 +57,7 @@ export default function Modules() {
         <ModulesControls
           setModuleName={setModuleName}
           moduleName={moduleName}
-          addModule={() => {
-            dispatch(addModule(createModuleForCourse));
-            setModuleName("");
-          }}
+          addModule={createModuleForCourse}
         />
       )}
       <br />
@@ -90,11 +88,9 @@ export default function Modules() {
                 />
               )}
               {isFaculty && (
-                <ModuleControlButtons
-                  moduleId={module._id}
-                  deleteModule={(moduleId) => removeModule(moduleId)}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))} //
-                />
+                <ModuleControlButtons moduleId={module._id}
+                deleteModule={(moduleId) => removeModule(moduleId)}
+                editModule={(moduleId) => dispatch(editModule(moduleId))} />
               )}
             </div>
             {module.lessons && (

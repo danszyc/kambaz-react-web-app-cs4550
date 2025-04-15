@@ -6,12 +6,14 @@ import CourseRoutes from "./Kambaz/Courses/routes.js";
 import session from "express-session";
 import "dotenv/config";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
+import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
+import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 
 const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: process.env.NETLIFY_URL || "http://localhost:3000",
+    origin: "http://localhost:5173",
   })
 );
 const sessionOptions = {
@@ -29,11 +31,13 @@ if (process.env.NODE_ENV !== "development") {
 }
 app.use(session(sessionOptions));
 app.use(express.json());
+Lab5(app);
 UserRoutes(app);
 CourseRoutes(app);
-Lab5(app);
 ModuleRoutes(app);
-const PORT = process.env.PORT || 4000;
+AssignmentRoutes(app);
+EnrollmentRoutes(app);
+const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

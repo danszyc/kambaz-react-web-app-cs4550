@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Button,
   FormControl,
@@ -14,41 +15,59 @@ import {
   BsTrash,
 } from "react-icons/bs";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { setAssignments, deleteAssignment } from "./reducer";
 import "./styles.css";
 import AssignmentControlButtons from "./AssignmentControlButtons";
+import * as assignmentsClient from "./client";
+import * as coursesClient from "../client";
+import { useEffect } from "react";
 
 export default function Assignments() {
   const { cid } = useParams();
   const navigate = useNavigate();
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
 
-  // Fetch assignments from Redux store
-  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(
+      cid as string
+    );
+    console.log("Assignments fetched from API:", assignments);
+    dispatch(setAssignments(assignments));
+    console.log("Assignments fetched from Redux Store:", assignments);
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
 
-  // Filter assignments for the current course
-  const courseAssignments = assignments.filter(
-    (assignment: any) => assignment.course === cid
-  );
+  const removeAssignment = async (assignmentId: string) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this assignment?"
+    );
+    await assignmentsClient.deleteAssignment(assignmentId);
+    if (isConfirmed) {
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
 
   // Handle adding a new assignment
   const handleAddAssignment = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments/new`);
   };
 
-  // Handle deleting an assignment
-  const handleDeleteAssignment = (assignmentId: string) => {
-    // Show confirmation dialog
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this assignment?"
-    );
+  // // Handle deleting an assignment
+  // const handleDeleteAssignment = (assignmentId: string) => {
+  //   // Show confirmation dialog
+  //   const isConfirmed = window.confirm(
+  //     "Are you sure you want to delete this assignment?"
+  //   );
 
-    if (isConfirmed) {
-      // Dispatch the deleteAssignment action
-      dispatch(deleteAssignment(assignmentId));
-    }
-  };
+  //   if (isConfirmed) {
+  //     // Dispatch the deleteAssignment action
+  //     dispatch(deleteAssignment(assignmentId));
+  //   }
+  // };
 
   return (
     <div id="wd-assignments">
@@ -87,7 +106,7 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="wd-assignments rounded-0">
-            {courseAssignments.map((assignment: any) => (
+            {assignments.map((assignment: any) => (
               <ListGroup.Item
                 key={assignment._id}
                 className="wd-assignment p-3 ps-1"
@@ -109,16 +128,17 @@ export default function Assignments() {
                     <Row>
                       <div className="container">
                         <div className="text-danger">
-                          <span className="fw-bold me-1">Multiple Modules</span>{" "}
+                          <span className="fw-bold me-1">Multiple Modules</span>
                         </div>
-                        <div className="fw-bold me-1"> | Not available until</div>{" "}
-                        May 6 at 12:00 am |
+                        <div className="fw-bold me-1">
+                          | Not available until {assignment.availableUntil || "N/A"}
+                        </div>
                       </div>
                     </Row>
                     <Row>
                       <div className="container">
-                        <div className="fw-bold me-1">Due</div> May 13 at 11:59pm
-                        | 300 pts
+                        <div className="fw-bold me-1">Due</div> {assignment.due || "N/A"} |{" "}
+                        {assignment.points || 0} pts
                       </div>
                     </Row>
                   </div>
@@ -126,7 +146,7 @@ export default function Assignments() {
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() => handleDeleteAssignment(assignment._id)}
+                      onClick={() => removeAssignment(assignment._id)}
                     >
                       <BsTrash />
                     </Button>

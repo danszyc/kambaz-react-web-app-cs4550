@@ -124,7 +124,9 @@ export default function Lab1() {
               <td>2/10/21</td>
               <td>90</td>
             </tr>
-            <tr> ... </tr>
+            <tr>
+              <td>...</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
@@ -157,7 +159,7 @@ _Starship-gap2.jpg"
           <label htmlFor="wd-text-fields-password">Password:</label>
           <input
             type="password"
-            value="123@#$asd"
+            // value ="123@#$asd"
             id="wd-text-fields-password"
           />
           <br />
@@ -168,22 +170,19 @@ _Starship-gap2.jpg"
           <input
             type="text"
             placeholder="Doe"
-            value="Wonderland"
+            // value="Wonderland"
             title="The last name"
             id="wd-text-fields-last-name"
           />
           <h5>Text boxes</h5>
           <label>Biography:</label>
           <br />
-          <textarea id="wd-textarea" cols={30} rows={10}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </textarea>
+          <textarea
+            id="wd-textarea"
+            cols={30}
+            rows={10}
+            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          />
           <h5 id="wd-buttons">Buttons</h5>
           <button
             type="button"
@@ -224,18 +223,18 @@ _Starship-gap2.jpg"
           <h5>Select one</h5>
           <label htmlFor="wd-select-one-genre"> Favorite movie genre: </label>
           <br />
-          <select id="wd-select-one-genre">
+          {/* <select id="wd-select-one-genre">
             <option value="COMEDY">Comedy</option>
             <option value="DRAMA">Drama</option>
             <option selected value="SCIFI">
               Science Fiction
             </option>
             <option value="FANTASY">Fantasy</option>
-          </select>
+          </select> */}
           <h5>Select many</h5>
           <label htmlFor="wd-select-many-genre"> Favorite movie genres: </label>
           <br />
-          <select multiple id="wd-select-many-genre">
+          {/* <select multiple id="wd-select-many-genre">
             <option value="COMEDY" selected>
               {" "}
               Comedy{" "}
@@ -246,7 +245,7 @@ _Starship-gap2.jpg"
               Science Fiction{" "}
             </option>
             <option value="FANTASY"> Fantasy </option>
-          </select>
+          </select> */}
           <h4>Other HTML field types</h4>
           <label htmlFor="wd-text-fields-email"> Email: </label>
           <input
@@ -256,7 +255,7 @@ _Starship-gap2.jpg"
           />
           <br />
           <label htmlFor="wd-text-fields-salary-start"> Starting salary:</label>
-          <input
+          {/* <input
             type="number"
             value="100000"
             placeholder="1000"
@@ -274,7 +273,7 @@ _Starship-gap2.jpg"
           <br />
           <label htmlFor="wd-text-fields-dob"> Date of birth: </label>
           <input type="date" value="2000-01-21" id="wd-text-fields-dob" />
-          <br />
+          <br /> */}
           <h4>Anchor tag</h4>
           Please
           <a href="https://www.lipsum.com" id="wd-lipsum">

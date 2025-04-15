@@ -15,8 +15,17 @@ export default function WorkingWithArrays(app) {
     res.json(todos);
   });
   app.get("/lab5/todos", (req, res) => {
+    const { completed } = req.query;
+    if (completed !== undefined) {
+    const completedBool = completed === "true";
+    const completedTodos = todos.filter(
+    (t) => t.completed === completedBool);
+    res.json(completedTodos);
+    return;
+    }
     res.json(todos);
-  });
+    });
+    
   app.post("/lab5/todos", (req, res) => {
     const newTodo = { ...req.body, id: new Date().getTime() };
     todos.push(newTodo);

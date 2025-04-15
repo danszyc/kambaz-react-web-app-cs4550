@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -15,7 +17,7 @@ export default function AssignmentEditor() {
 
   // Find the assignment to edit (if aid exists)
   const existingAssignment = assignments.find((a: any) => a._id === aid);
-  console.log("Existing Assignment:", existingAssignment);
+  // console.log("Existing Assignment:", existingAssignment);
 
   // Local state for form fields
   const [title, setTitle] = useState("");
@@ -37,34 +39,38 @@ export default function AssignmentEditor() {
     }
   }, [existingAssignment]);
 
-  // Handle form submission
-  const handleSave = () => {
-    const assignmentData = {
-      _id: aid || Date.now().toString(), // Use existing ID or generate a new one
-      course: cid,
-      title,
-      description,
-      points,
-      due,
-      availableFrom,
-      availableUntil,
-    };
-
-    if (existingAssignment) {
-      // Update existing assignment
-      dispatch(updateAssignment(assignmentData));
-    } else {
-      // Add new assignment
-      dispatch(addAssignment(assignmentData));
-    }
-
-    // Navigate back to the Assignments screen
-    navigate(`/Kambaz/Courses/${cid}/Assignments`);
-  };
-
   // Handle cancel
   const handleCancel = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  };
+
+  const saveAssignment = async () => {
+    try {
+      const assignmentData = {
+        _id: aid,
+        course: cid,
+        title,
+        description,
+        points,
+        due,
+        availableFrom,
+        availableUntil,
+      };
+  
+      if (existingAssignment) {
+        const updatedAssignment = await assignmentsClient.updateAssignment(assignmentData);
+        dispatch(updateAssignment(updatedAssignment));
+      } else {
+        console.log('new assignment data',assignmentData)
+        console.log('cid',cid)
+        const newAssignment = await assignmentsClient.createAssignment(assignmentData);
+        console.log('new assignment',newAssignment);
+        dispatch(addAssignment(newAssignment));
+      }
+      navigate(`/Kambaz/Courses/${cid}/Assignments`);
+    } catch (error) {
+      console.error("Failed to save assignment:", error);
+    }
   };
 
   return (
@@ -91,7 +97,9 @@ export default function AssignmentEditor() {
         </Row>
 
         <Row className="mb-3">
-          <Col sm={3} className="fw-bold">Points</Col>
+          <Col sm={3} className="fw-bold">
+            Points
+          </Col>
           <Col sm={9}>
             <Form.Control
               type="number"
@@ -103,7 +111,9 @@ export default function AssignmentEditor() {
         </Row>
 
         <Row className="mb-3">
-          <Col sm={3} className="fw-bold">Due Date</Col>
+          <Col sm={3} className="fw-bold">
+            Due Date
+          </Col>
           <Col sm={9}>
             <Form.Control
               type="date"
@@ -114,7 +124,9 @@ export default function AssignmentEditor() {
         </Row>
 
         <Row className="mb-3">
-          <Col sm={3} className="fw-bold">Available From</Col>
+          <Col sm={3} className="fw-bold">
+            Available From
+          </Col>
           <Col sm={9}>
             <Form.Control
               type="date"
@@ -125,7 +137,9 @@ export default function AssignmentEditor() {
         </Row>
 
         <Row className="mb-3">
-          <Col sm={3} className="fw-bold">Available Until</Col>
+          <Col sm={3} className="fw-bold">
+            Available Until
+          </Col>
           <Col sm={9}>
             <Form.Control
               type="date"
@@ -139,7 +153,7 @@ export default function AssignmentEditor() {
           <Button variant="secondary" className="me-2" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleSave}>
+          <Button variant="danger" onClick={saveAssignment}>
             Save
           </Button>
         </div>

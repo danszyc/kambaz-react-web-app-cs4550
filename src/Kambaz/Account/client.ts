@@ -17,12 +17,8 @@ export const findMyCourses = async () => {
 const REMOTE_SERVER =
   import.meta.env.VITE_REMOTE_SERVER || import.meta.env.REACT_APP_REMOTE_SERVER;
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
-interface Credentials {
-  username: string;
-  password: string;
-}
 
-export const signin = async (credentials: Credentials) => {
+export const signin = async (credentials: any) => {
   const response = await axiosWithCredentials.post(
     `${USERS_API}/signin`,
     credentials
@@ -35,7 +31,7 @@ export const profile = async () => {
   return response.data;
 };
 
-export const signup = async (user: Credentials) => {
+export const signup = async (user: any) => {
   const response = await axiosWithCredentials.post(`${USERS_API}/signup`, user);
   return response.data;
 };

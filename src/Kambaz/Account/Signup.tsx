@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as client from "./client";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 export default function Signup() {
-  interface User {
-    username: string;
-    password: string;
-  }
-  const [user, setUser] = useState<User>({ username: "", password: "" });
+  const [user, setUser] = useState<any>({ username: "", password: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signup = async () => {
