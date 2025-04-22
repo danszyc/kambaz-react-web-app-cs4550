@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
+import PeopleDetails from "./Details";
+import { Link } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 // import * as db from "../../Database";
 
@@ -11,6 +13,7 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
   return (
     <div id="wd-people-table">
+      <PeopleDetails />
       <Table striped>
         <thead>
           <tr>
@@ -24,19 +27,21 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
         </thead>
         <tbody>
           {users.map((user) => (
-              <tr key={user._id}>
-                <td className="wd-full-name text-nowrap">
+            <tr key={user._id}>
+              <td className="wd-full-name text-nowrap">
+                <Link to={`/Kambaz/Account/Users/${user._id}`} className="text-decoration-none">
                   <FaUserCircle className="me-2 fs-1 text-secondary" />
                   <span className="wd-first-name">{user.firstName}</span>{" "}
                   <span className="wd-last-name">{user.lastName}</span>
-                </td>
-                <td className="wd-login-id">{user.loginId}</td>
-                <td className="wd-section">{user.section}</td>
-                <td className="wd-role">{user.role}</td>
-                <td className="wd-last-activity">{user.lastActivity}</td>
-                <td className="wd-total-activity">{user.totalActivity}</td>
-              </tr>
-            ))}
+                </Link>
+              </td>
+              <td className="wd-login-id">{user.loginId}</td>
+              <td className="wd-section">{user.section}</td>
+              <td className="wd-role">{user.role}</td>
+              <td className="wd-last-activity">{user.lastActivity}</td>
+              <td className="wd-total-activity">{user.totalActivity}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
