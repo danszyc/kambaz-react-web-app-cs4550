@@ -13,7 +13,6 @@ export default function AssignmentEditor() {
 
   // Fetch assignments from Redux store
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-  console.log("Assignments in Redux Store:", assignments);
 
   // Find the assignment to edit (if aid exists)
   const existingAssignment = assignments.find((a: any) => a._id === aid);
@@ -61,10 +60,7 @@ export default function AssignmentEditor() {
         const updatedAssignment = await assignmentsClient.updateAssignment(assignmentData);
         dispatch(updateAssignment(updatedAssignment));
       } else {
-        console.log('new assignment data',assignmentData)
-        console.log('cid',cid)
         const newAssignment = await assignmentsClient.createAssignment(assignmentData);
-        console.log('new assignment',newAssignment);
         dispatch(addAssignment(newAssignment));
       }
       navigate(`/Kambaz/Courses/${cid}/Assignments`);
