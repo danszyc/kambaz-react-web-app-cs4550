@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
-// import { useParams } from "react-router-dom";
-// import * as db from "../../Database";
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
 
-export default function PeopleTable({ users = [] }: { users?: any[] }) {
-
-  // const { cid } = useParams();
-  // const { users, enrollments } = db;
+export default function PeopleTable() {
+  const { cid } = useParams();
+  const { users, enrollments } = db;
 
   return (
     <div id="wd-people-table">
@@ -23,7 +21,13 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users
+            .filter((user) =>
+              enrollments.some(
+                (enrollment) => enrollment.user === user._id && enrollment.course === cid
+              )
+            )
+            .map((user) => (
               <tr key={user._id}>
                 <td className="wd-full-name text-nowrap">
                   <FaUserCircle className="me-2 fs-1 text-secondary" />

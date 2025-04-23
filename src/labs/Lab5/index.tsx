@@ -1,13 +1,13 @@
 import EnvironmentVariables from "./EnvironmentVariables";
 const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER || 
-import.meta.env.REACT_APP_REMOTE_SERVER || "http://localhost:4000";
+import.meta.env.REACT_APP_REMOTE_SERVER;
 import PathParameters from "./PathParameters";
 import QueryParameters from "./QueryParameters";
 import WorkingWithObjects from "./WorkingWithObjects";
 import WorkingWithArrays from "./WorkingWithArrays";
 import HttpClient from "./HttpClient";
 import WorkingWithObjectsAsynchronously from "./WorkingWithObjectsAsynchronously";
-// import WorkingWithArraysAsynchronously from "./WorkingWithArraysAsynchronously";
+import WorkingWithArraysAsynchronously from "./WorkingWithArraysAsynchronously";
 export default function Lab5() {
   return (
     <div id="wd-lab5">
@@ -25,7 +25,7 @@ export default function Lab5() {
       <WorkingWithArrays />
       <HttpClient />
       <WorkingWithObjectsAsynchronously />
-      {/* // <WorkingWithArraysAsynchronously /> */}
+      <WorkingWithArraysAsynchronously />
     </div>
   );
 }

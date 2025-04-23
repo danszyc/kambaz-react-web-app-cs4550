@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 const axiosWithCredentials = axios.create({ withCredentials: true });
-
-export const findAllUsers = async () => {
-  const response = await axiosWithCredentials.get(USERS_API);
-  return response.data;
-};
-
 export const createCourse = async (course: any) => {
   const { data } = await axiosWithCredentials.post(
     `${USERS_API}/current/courses`,
@@ -20,7 +14,8 @@ export const findMyCourses = async () => {
   );
   return data;
 };
-const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER || import.meta.env.REACT_APP_REMOTE_SERVER || "http://localhost:4000";
+const REMOTE_SERVER =
+  import.meta.env.VITE_REMOTE_SERVER || import.meta.env.REACT_APP_REMOTE_SERVER;
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
 
 export const signin = async (credentials: any) => {
