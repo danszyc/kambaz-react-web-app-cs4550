@@ -15,6 +15,7 @@ export default function Signin() {
   const signin = async () => {
     const user = await client.signin(credentials);
     if (!user) return;
+    console.log('no user found');
     dispatch(setCurrentUser(user));
     navigate("/Kambaz/Dashboard");
   };

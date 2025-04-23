@@ -2,6 +2,7 @@ import * as assignmentsDao from "./dao.js";
 export default function AssignmentsRoutes(app) {
   app.post("/api/assignments", async (req, res) => {
     const newAssignment = req.body;
+    console.log("new assignment",newAssignment)
     const createdAssignment = await assignmentsDao.createAssignment(
       newAssignment
     );

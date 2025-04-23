@@ -33,7 +33,9 @@ export default function Assignments() {
     const assignments = await coursesClient.findAssignmentsForCourse(
       cid as string
     );
+    console.log("Assignments fetched from API:", assignments);
     dispatch(setAssignments(assignments));
+    console.log("Assignments fetched from Redux Store:", assignments);
   };
   useEffect(() => {
     fetchAssignments();
