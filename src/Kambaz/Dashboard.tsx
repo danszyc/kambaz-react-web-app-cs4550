@@ -12,6 +12,8 @@ export default function Dashboard({
   addNewCourse,
   deleteCourse,
   updateCourse,
+  enrolling,
+  setEnrolling
 }: {
   courses: any[];
   course: any;
@@ -19,6 +21,8 @@ export default function Dashboard({
   addNewCourse: () => void;
   deleteCourse: (course: any) => void;
   updateCourse: () => void;
+  enrolling: boolean;
+  setEnrolling: (enrolling: boolean) => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
@@ -54,11 +58,15 @@ export default function Dashboard({
   // Filter courses based on enrollment status
   const filteredCourses = showAllCourses
     ? courses
-    : courses.filter((course) => isEnrolled(course._id));
+    : courses; //.filter((course) => isEnrolled(course._id));
 
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1>
+      <h1 id="wd-dashboard-title">Dashboard
+        <button onClick={() => setEnrolling(!enrolling)} className=
+          "float-end btn btn-primary" >
+          {enrolling ? "My Courses" : "All Courses"}
+        </button></h1>
       <hr />
       {isFaculty && (
         <>
@@ -128,6 +136,11 @@ export default function Dashboard({
                   />
                   <Card.Body>
                     <Card.Title className="wd-dashboard-course-title">
+                      {enrolling && (
+                        <button className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                          {course.enrolled ? "Unenroll" : "Enroll"}
+                        </button>
+                      )}
                       {course.name}
                     </Card.Title>
                     <Card.Text
