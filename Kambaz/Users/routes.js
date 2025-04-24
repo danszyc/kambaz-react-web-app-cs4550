@@ -120,8 +120,6 @@ export default function UserRoutes(app) {
     res.json(courses);
   };
 
-
-
   app.post("/api/users", createUser);
   app.get("/api/users/:uid/courses", findCoursesForUser);
   app.post("/api/users/current/courses", createCourse);
