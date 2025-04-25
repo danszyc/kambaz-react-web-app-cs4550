@@ -16,7 +16,6 @@ import {
   import { useEffect, useState } from "react";
   import * as quizzesClient from "./client";
   import dayjs from "dayjs";
-  import { v4 as uuidv4 } from "uuid";
   
   export default function Quizzes() {
     const { cid } = useParams();
@@ -33,36 +32,13 @@ import {
     }, []);
   
     const handleAddQuiz = async () => {
-      const newQuiz = {
-        _id: uuidv4(),
-        course: cid,
-        name: "New Quiz",
-        description: "",
-        quizType: "Graded Quiz",
-        assignmentGroup: "Quizzes",
-        shuffleAnswers: true,
-        timeLimit: 20,
-        lockQuestionsAfterAnswering: false,
-        showCorrectAnswers: false,
-        accessCode: "",
-        oneQuestionAtATime: true,
-        webcamRequired: false,
-        dueDate: null,
-        multipleAttempts: false,
-        howManyAttempts: 1,
-        points: 0,
-        availableFrom: null,
-        availableUntil: null,
-        published: false
-      };
-      const created = await quizzesClient.createQuiz(newQuiz);
-      navigate(`/Kambaz/Courses/${cid}/Quizzes/${created._id}`);
+      navigate(`/Kambaz/Courses/${cid}/Quizzes/new`);
     };
   
     const handleDeleteQuiz = async (quizId: string) => {
       const isConfirmed = window.confirm("Are you sure you want to delete this quiz?");
-      if (isConfirmed) {
-        await quizzesClient.deleteQuiz(quizId);
+      if (isConfirmed && cid) {
+        await quizzesClient.deleteQuiz(cid,quizId);
         setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
       }
     };

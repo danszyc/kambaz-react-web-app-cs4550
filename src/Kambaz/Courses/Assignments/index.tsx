@@ -33,9 +33,7 @@ export default function Assignments() {
     const assignments = await coursesClient.findAssignmentsForCourse(
       cid as string
     );
-    console.log("Assignments fetched from API:", assignments);
     dispatch(setAssignments(assignments));
-    console.log("Assignments fetched from Redux Store:", assignments);
   };
   useEffect(() => {
     fetchAssignments();
@@ -55,19 +53,6 @@ export default function Assignments() {
   const handleAddAssignment = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments/new`);
   };
-
-  // // Handle deleting an assignment
-  // const handleDeleteAssignment = (assignmentId: string) => {
-  //   // Show confirmation dialog
-  //   const isConfirmed = window.confirm(
-  //     "Are you sure you want to delete this assignment?"
-  //   );
-
-  //   if (isConfirmed) {
-  //     // Dispatch the deleteAssignment action
-  //     dispatch(deleteAssignment(assignmentId));
-  //   }
-  // };
 
   return (
     <div id="wd-assignments">

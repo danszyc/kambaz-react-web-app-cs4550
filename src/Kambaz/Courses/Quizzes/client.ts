@@ -22,7 +22,7 @@ export const getQuizById = async (courseId:string, id: string) => {
 // Create a new quiz
 export const createQuiz = async (quiz: any) => {
   const cleanQuiz = {
-    _id: quiz._id,
+    // _id: quiz._id,
     name: quiz.name,
     description: quiz.description,
     course: quiz.course, // Link to the course
@@ -44,7 +44,7 @@ export const createQuiz = async (quiz: any) => {
     published: quiz.published
   };
 
-  const response = await axios.post(QUIZZES_API, cleanQuiz);
+  const response = await axios.post(`${REMOTE_SERVER}/api/courses/${quiz.course}/quizzes`, cleanQuiz);
   return response.data;
 };
 
@@ -78,7 +78,7 @@ export const updateQuiz = async (quiz: any) => {
 };
 
 // Delete a quiz by ID
-export const deleteQuiz = async (id: string) => {
-  const response = await axios.delete(`${QUIZZES_API}/${id}`);
+export const deleteQuiz = async (cid: string, id: string) => {
+  const response = await axios.delete(`${REMOTE_SERVER}/api/courses/${cid}/quizzes/${id}`);
   return response.data;
 };

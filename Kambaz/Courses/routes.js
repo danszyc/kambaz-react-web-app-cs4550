@@ -72,6 +72,12 @@ export default function CourseRoutes(app) {
     const status = await quizzesDao.updateQuiz(quizId, quizUpdates);
     res.send(status);
   });
+
+  app.delete("/api/courses/:courseId/quizzes/:quizId", async (req, res) => {
+      const { quizId } = req.params;
+      const status = await quizzesDao.deleteQuiz(quizId);
+      res.send(status);
+  });
 }
 
 
