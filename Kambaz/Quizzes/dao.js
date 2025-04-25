@@ -19,5 +19,6 @@ export function updateQuiz(quizId, quizUpdates) {
 }
 
 export function findQuizById(quizId) {
-    return model.findById(quizId);
+    return model.findOne({ _id: quizId });
 }
+  

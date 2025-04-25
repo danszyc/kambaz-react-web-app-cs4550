@@ -61,10 +61,7 @@ export default function AssignmentEditor() {
         const updatedAssignment = await assignmentsClient.updateAssignment(assignmentData);
         dispatch(updateAssignment(updatedAssignment));
       } else {
-        console.log('new assignment data',assignmentData)
-        console.log('cid',cid)
         const newAssignment = await assignmentsClient.createAssignment(assignmentData);
-        console.log('new assignment',newAssignment);
         dispatch(addAssignment(newAssignment));
       }
       navigate(`/Kambaz/Courses/${cid}/Assignments`);

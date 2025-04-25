@@ -4,9 +4,6 @@ const REMOTE_SERVER =
   import.meta.env.VITE_REMOTE_SERVER || import.meta.env.REACT_APP_REMOTE_SERVER;
 const ASSIGNMENTS_API = `${REMOTE_SERVER}/api/assignments`;
 
-
-
-
 // Fetch all assignments
 export const getAllAssignmentsForCourse = async (courseId: string) => {
   const { data } = await axios.get(`${ASSIGNMENTS_API}?courseId=${courseId}`);

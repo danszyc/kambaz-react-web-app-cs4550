@@ -6,7 +6,11 @@ const schema = new mongoose.Schema(
     name: String,
     description: String,
     course: { type: String, ref: "CourseModel" },
-
+    
+    published: {
+      type: Boolean,
+      default: false
+    },
     quizType: {
       type: String,
       enum: ["Graded Quiz", "Practice Quiz", "Graded Survey", "Ungraded Survey"],
@@ -35,14 +39,8 @@ const schema = new mongoose.Schema(
     },
 
     showCorrectAnswers: {
-      type: String,
-      enum: [
-        "Always", 
-        "Only once after each attempt", 
-        "Only after last attempt", 
-        "Never"
-      ],
-      default: "Never"
+      type: Boolean,
+      default: false
     },
 
     accessCode: {

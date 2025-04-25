@@ -11,8 +11,6 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
   // const { cid } = useParams();
   // const { users, enrollments } = db;
 
-  console.log("users in peopletable", users);
-
   return (
     <div id="wd-people-table">
       <PeopleDetails />
