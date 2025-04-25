@@ -9,6 +9,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as quizzesClient from "./client";
+import Questions from "./Questions";
 // import { v4 as uuidv4 } from "uuid";
 
 export default function QuizDetails() {
@@ -71,7 +72,7 @@ export default function QuizDetails() {
   };
 
   return (
-    <div className="container">
+    <div className="flex-col">
       <h2>Quiz Details</h2>
       <Form>
         <Row>
@@ -277,6 +278,7 @@ export default function QuizDetails() {
           </div>
         </div>
       </Form>
+      <Questions />
     </div>
   );
 }
